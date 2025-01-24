@@ -2,17 +2,24 @@
     "name": "blog-challenge",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
     "scripts": {
         "dev": "next dev --turbopack",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "prettier": "npx prettier . --write"
+        "prettier": "npx prettier . --write",
+        "db:seed": "ts-node prisma/seed.ts"
     },
     "dependencies": {
+        "@prisma/client": "^6.2.1",
+        "dotenv": "^16.4.7",
         "next": "15.1.6",
+        "node-fetch": "^3.3.2",
+        "prisma": "^6.2.1",
         "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "react-dom": "^19.0.0",
+        "ts-node": "^10.9.2"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",
