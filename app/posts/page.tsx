@@ -1,19 +1,18 @@
+import PostsList from '@/components/postsList'
 import { Post } from '@/interfaces/postUser.interface'
-import prisma from '@/lib/prisma'
+
+export const revalidate = 0
 
 export default async function Posts() {
-    const posts = await prisma.post.findMany()
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`)
+    if (!res.ok) {
+        throw new Error('Failed to fetch posts')
+    }
+    const posts: Post[] = await res.json()
 
     return (
-        <div>
-            <h1>Posts</h1>
-            <ul>
-                {posts.map((post: Post) => (
-                    <li key={post.id}>
-                        <span className="font-semibold">{post.title}</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <PostsList posts={posts} />
+        </>
     )
 }
