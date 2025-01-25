@@ -1,34 +1,15 @@
 'use client'
 
-import { useState } from 'react'
 import { Post } from '@/interfaces/postUser.interface'
 import PostItem from './post-item'
-import Toaster from './toaster'
 
-export default function PostsList({ posts }: { posts: Post[] }) {
-    const [postList, setPostList] = useState(posts)
-    const [toasterMessage, setToasterMessage] = useState<string | null>(null)
-    const [toasterType, setToasterType] = useState<'success' | 'error' | null>(
-        null
-    )
-
-    const handleDeletePost = (postId: number, message: string) => {
-        if (message === 'success') {
-            setPostList((prevPosts) =>
-                prevPosts.filter((post) => post.id !== postId)
-            )
-            setToasterMessage('Post deleted successfully!')
-            setToasterType('success')
-        } else {
-            setToasterMessage('Failed to delete post. Please try again.')
-            setToasterType('error')
-        }
-        setTimeout(() => {
-            setToasterMessage(null)
-            setToasterType(null)
-        }, 3000)
-    }
-
+export default function PostsList({
+    posts,
+    onDelete,
+}: {
+    posts: Post[]
+    onDelete: (postId: number, message: 'success' | 'error') => void
+}) {
     if (!posts) {
         return null
     }
@@ -37,16 +18,9 @@ export default function PostsList({ posts }: { posts: Post[] }) {
     }
     return (
         <div className="container mx-auto px-4 py-8">
-            {toasterMessage && toasterType && (
-                <Toaster message={toasterMessage} type={toasterType} />
-            )}
             <ul className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {postList.map((post: Post) => (
-                    <PostItem
-                        key={post.id}
-                        post={post}
-                        onDelete={handleDeletePost}
-                    />
+                {posts.map((post: Post) => (
+                    <PostItem key={post.id} post={post} onDelete={onDelete} />
                 ))}
             </ul>
         </div>

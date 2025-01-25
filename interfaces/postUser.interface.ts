@@ -37,4 +37,12 @@ interface PostsPageProps {
     error?: string
 }
 
-export type { User, Post, PostsPageProps }
+interface ResponseData {
+    posts: Post[]
+    users: User[]
+    totalPages: number
+    currentPage: number
+    userId: number
+}
+
+export type { User, Post, PostsPageProps, ResponseData }
