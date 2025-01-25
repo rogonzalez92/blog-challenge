@@ -4,6 +4,7 @@ interface Post {
     title: string
     body: string
     user?: User | null
+    createdAt: Date
 }
 
 interface User {
