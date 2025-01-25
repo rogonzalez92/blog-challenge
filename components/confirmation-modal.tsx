@@ -1,4 +1,3 @@
-// components/ConfirmationModal.jsx
 import React from 'react'
 
 interface ConfirmationModalProps {
