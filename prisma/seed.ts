@@ -1,11 +1,9 @@
 import dotenv from 'dotenv'
 import fetch from 'node-fetch'
-import { PrismaClient } from '@prisma/client'
-import { Post, User } from '@/interfaces/postUser.interface'
+import { Post, User } from '@/core/domain/entities'
+import prisma from '@/core/infrastructure/prisma/client'
 
 dotenv.config()
-
-const prisma = new PrismaClient()
 
 async function main() {
     try {

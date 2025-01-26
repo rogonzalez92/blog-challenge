@@ -2,16 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import Select from 'react-select'
-import { User } from '@/interfaces/postUser.interface'
+import { User } from '@/core/domain/entities'
 
 const SearchForm = ({
-    users,
+    users = [],
     onQueryChange,
     selectedUserId,
+    isLoading,
 }: {
     users: User[]
     onQueryChange: (userId: number | null) => void
     selectedUserId: number | null
+    isLoading: boolean
 }) => {
     const [mounted, setMounted] = useState(false)
 
@@ -27,10 +29,12 @@ const SearchForm = ({
         onQueryChange(option ? option.value : null)
     }
 
-    const options = users.map((user) => ({
-        value: user.id,
-        label: user.name,
-    }))
+    const options = Array.isArray(users)
+        ? users.map((user) => ({
+              value: user.id,
+              label: user.name,
+          }))
+        : []
 
     return (
         <div className="flex justify-center items-center container mx-auto py-8">
@@ -42,7 +46,7 @@ const SearchForm = ({
                 onChange={handleSelectChange}
                 options={options}
                 isClearable
-                placeholder="Select author..."
+                placeholder={isLoading ? 'Loading...' : 'Select author...'}
                 className="w-full max-w-md px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
         </div>

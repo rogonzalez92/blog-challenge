@@ -1,7 +1,5 @@
-'use client'
-
-import { Post } from '@/interfaces/postUser.interface'
-import DeleteButton from './delete-button'
+import { Post } from '@/core/domain/entities'
+import DeleteButton from '../delete/delete-button'
 
 export default function PostItem({
     post,

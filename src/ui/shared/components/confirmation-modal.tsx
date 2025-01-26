@@ -1,12 +1,14 @@
 import React from 'react'
 
 interface ConfirmationModalProps {
+    title: string
     message: string
     onConfirm: () => void
     onCancel: () => void
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+    title,
     message,
     onConfirm,
     onCancel,
@@ -15,6 +17,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-black opacity-50 fixed inset-0"></div>
             <div className="bg-white rounded-lg shadow-lg p-6 z-10">
+                <h3 className="text-lg font-bold mb-2">{title}</h3>
                 <p className="mb-4">{message}</p>
                 <div className="flex justify-end space-x-2">
                     <button
