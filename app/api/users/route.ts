@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
-import prisma from '@/core/infrastructure/prisma/client'
 import { UserUseCase } from '@/core/use-cases'
 import { PrismaUserRepository } from '@/core/infrastructure/repositories'
 import { ApiError } from '@/core/errors/api.error'
 
-const userRepository = new PrismaUserRepository(prisma)
+const userRepository = new PrismaUserRepository()
 const userService = new UserUseCase(userRepository)
 
 export async function GET() {

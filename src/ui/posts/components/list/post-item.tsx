@@ -6,7 +6,7 @@ export default function PostItem({
     onDelete,
 }: {
     post: Post
-    onDelete: (postId: number, message: 'success' | 'error') => void
+    onDelete: (postId: number) => void
 }) {
     const date = new Date(post.createdAt)
     const formattedDate = date.toLocaleDateString('en-US', {

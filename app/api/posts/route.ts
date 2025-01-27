@@ -1,9 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server'
-import prisma from '@/core/infrastructure/prisma/client'
 import { PostUseCase } from '@/core/use-cases'
 import { PrismaPostRepository } from '@/core/infrastructure/repositories'
 
-const postRepository = new PrismaPostRepository(prisma)
+const postRepository = new PrismaPostRepository()
 const postService = new PostUseCase(postRepository)
 
 export async function GET(req: NextRequest) {

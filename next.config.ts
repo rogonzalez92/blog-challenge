@@ -5,8 +5,24 @@ const nextConfig: NextConfig = {
         return [
             {
                 source: '/',
-                destination: '/posts',
+                destination: '/posts?page=1',
                 permanent: true,
+            },
+            {
+                source: '/posts',
+                destination: '/posts?page=1',
+                permanent: false,
+                missing: [
+                    {
+                        type: 'query',
+                        key: 'page',
+                    },
+                ],
+            },
+            {
+                source: '/:path((?!posts|api).*)*',
+                destination: '/posts?page=1',
+                permanent: false,
             },
         ]
     },

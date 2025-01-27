@@ -5,7 +5,7 @@ import Select from 'react-select'
 import { User } from '@/core/domain/entities'
 
 const SearchForm = ({
-    users = [],
+    users,
     onQueryChange,
     selectedUserId,
     isLoading,
@@ -29,12 +29,10 @@ const SearchForm = ({
         onQueryChange(option ? option.value : null)
     }
 
-    const options = Array.isArray(users)
-        ? users.map((user) => ({
-              value: user.id,
-              label: user.name,
-          }))
-        : []
+    const options = users.map((user) => ({
+        value: user.id,
+        label: user.name,
+    }))
 
     return (
         <div className="flex justify-center items-center container mx-auto py-8">

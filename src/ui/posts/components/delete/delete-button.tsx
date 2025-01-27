@@ -1,12 +1,10 @@
 'use client'
 
 import React, { useState, lazy } from 'react'
-import { usePostDeletion } from '@ui/posts/hooks'
-import { useRepository } from '@/ui/providers'
 
 interface DeleteButtonProps {
     postId: number
-    onDelete: (postId: number, message: 'success' | 'error') => void
+    onDelete: (postId: number) => void
 }
 
 const ConfirmationModal = lazy(
@@ -15,29 +13,35 @@ const ConfirmationModal = lazy(
 
 const DeleteButton: React.FC<DeleteButtonProps> = ({ postId, onDelete }) => {
     const [isModalOpen, setModalOpen] = useState(false)
-    const { postUseCase } = useRepository()
-    const { deletePost, isLoading } = usePostDeletion(postUseCase)
+    const [isDeleting, setIsDeleting] = useState(false)
 
-    const handleDelete = async () => {
-        const result = await deletePost(postId)
-        onDelete(postId, result)
-        setModalOpen(false)
+    const handleClick = async () => {
+        if (isDeleting) return
+        setIsDeleting(true)
+        try {
+            await onDelete(postId)
+        } finally {
+            setIsDeleting(false)
+            setModalOpen(false)
+        }
     }
 
     return (
         <>
             <button
                 onClick={() => setModalOpen(true)}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-500 transition"
-                disabled={isLoading}
+                className={`bg-red-500 text-white px-4 py-2 rounded ${
+                    isDeleting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={isDeleting}
             >
-                {isLoading ? 'Deleting...' : 'Delete'}
+                {isDeleting ? 'Deleting...' : 'Delete'}
             </button>
             {isModalOpen && (
                 <ConfirmationModal
                     title="Delete Post"
                     message="Are you sure you want to delete this post?"
-                    onConfirm={handleDelete}
+                    onConfirm={handleClick}
                     onCancel={() => setModalOpen(false)}
                 />
             )}
