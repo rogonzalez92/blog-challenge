@@ -8,6 +8,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "seed": "node prisma/seed.js",
         "prettier": "npx prettier . --write",
         "test:api": "jest test/api-test.spec.js --testEnvironment=node",
         "test:api:watch": "jest test/api-test.spec.js --testEnvironment=node --watch"
