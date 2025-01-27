@@ -31,11 +31,19 @@ export function RepositoryProvider({
 }: {
     children: React.ReactNode
 }) {
+    const postsCache = React.useRef<Map<string, PostsResponseDto>>(new Map())
+    const usersCache = React.useRef<User[] | null>(null)
+
     const fetchPosts = async (params: {
         page: number
         userId?: number | null
     }) => {
         try {
+            const cacheKey = `page=${params.page}&userId=${params.userId || ''}`
+
+            if (postsCache.current.has(cacheKey)) {
+                return postsCache.current.get(cacheKey)!
+            }
             const queryParams = new URLSearchParams()
             if (params.userId)
                 queryParams.set('userId', params.userId.toString())
@@ -46,7 +54,11 @@ export function RepositoryProvider({
             if (!response.ok) {
                 throw new ApiError(response.status, 'Failed to fetch posts')
             }
-            return response.json() as Promise<PostsResponseDto>
+
+            const data = (await response.json()) as PostsResponseDto
+
+            postsCache.current.set(cacheKey, data)
+            return data
         } catch (error) {
             if (error instanceof ApiError) throw error
             throw new ApiError(500, 'Failed to fetch posts')
@@ -55,6 +67,10 @@ export function RepositoryProvider({
 
     const fetchUsers = async () => {
         try {
+            if (usersCache.current) {
+                return usersCache.current
+            }
+
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`
             )
@@ -62,6 +78,8 @@ export function RepositoryProvider({
                 throw new ApiError(response.status, 'Failed to fetch users')
             }
             const data = await response.json()
+
+            usersCache.current = data.users
             return data.users || []
         } catch (error) {
             if (error instanceof ApiError) throw error
@@ -83,7 +101,9 @@ export function RepositoryProvider({
                     throw new ApiError(response.status, 'Failed to delete post')
                 }
                 const data = await response.json()
-
+                if (data.success) {
+                    postsCache.current.clear()
+                }
                 return data.success ? 'success' : 'error'
             } catch (error) {
                 console.error(

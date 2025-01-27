@@ -1,14 +1,17 @@
 'use client'
 
-import React, { Suspense, useTransition, useState, useEffect } from 'react'
+import React, {
+    Suspense,
+    useTransition,
+    useState,
+    useEffect,
+    lazy,
+} from 'react'
 import { useRouter } from 'next/navigation'
 import { useRepository } from '@/ui/providers'
 import { useToast } from '@/ui/shared/hooks'
 import { Spinner } from '@/ui/shared/components/spinner'
 import { Toast } from '@/ui/shared/components/toast'
-import SearchForm from '../search/search-form'
-import PostsList from './posts-list'
-import Pagination from './pagination'
 import { User } from '@/core/domain/entities'
 import { PostsResponseDto } from '@/core/dtos'
 import { EmptyState } from '@/ui/shared/components/empty-state'
@@ -22,6 +25,10 @@ export default function PostsPage({
     initialPage: number
     initialUserId: number | null
 }) {
+    const SearchForm = lazy(() => import('../search/search-form'))
+    const PostsList = lazy(() => import('./posts-list'))
+    const Pagination = lazy(() => import('./pagination'))
+
     const router = useRouter()
     const { posts, users } = useRepository()
     const { message, type, showToast } = useToast()
