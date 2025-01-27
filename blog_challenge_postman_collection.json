@@ -1,0 +1,66 @@
+{
+    "info": {
+        "name": "Blog Challenge API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "Get All Users",
+                    "request": {
+                        "method": "GET",
+                        "url": "localhost:3000/api/users"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Posts",
+            "item": [
+                {
+                    "name": "Get All Posts",
+                    "request": {
+                        "method": "GET",
+                        "url": "localhost:3000/api/posts"
+                    }
+                },
+                {
+                    "name": "Create Post",
+                    "request": {
+                        "method": "POST",
+                        "url": "localhost:3000/api/posts",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"title\":\"New Post\",\"body\":\"This is the body of the post.\",\"userId\":1}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Post",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:3000/api/posts/:id",
+                            "host": ["localhost:3000/api"],
+                            "path": ["posts", ":id"],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -2,6 +2,7 @@ import prisma from '@core/infrastructure/prisma/client'
 import { PostRepository } from '@/core/domain/repositories'
 import { Post } from '@/core/domain/entities'
 import { BaseParams } from '@/core/domain/repositories'
+import { CreatePostDto } from '@/core/dtos/create-post.dto'
 
 interface PostParams extends BaseParams {
     userId?: number | null
@@ -42,5 +43,26 @@ export class PrismaPostRepository implements PostRepository {
             console.error('Delete error:', error)
             return false
         }
+    }
+
+    async findUser(userId: number) {
+        return prisma.user.findUnique({
+            where: { id: userId }
+        })
+    }
+
+    async create(data: CreatePostDto): Promise<Post> {
+        const post = await prisma.post.create({
+            data: {
+                title: data.title,
+                body: data.body,
+                userId: data.userId,
+            },
+            include: {
+                user: true
+            }
+        })
+        
+        return post as Post
     }
 }

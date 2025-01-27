@@ -8,12 +8,10 @@ const SearchForm = ({
     users,
     onQueryChange,
     selectedUserId,
-    isLoading,
 }: {
     users: User[]
     onQueryChange: (userId: number | null) => void
     selectedUserId: number | null
-    isLoading: boolean
 }) => {
     const [mounted, setMounted] = useState(false)
 
@@ -44,7 +42,6 @@ const SearchForm = ({
                 onChange={handleSelectChange}
                 options={options}
                 isClearable
-                placeholder={isLoading ? 'Loading...' : 'Select author...'}
                 className="w-full max-w-md px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
         </div>

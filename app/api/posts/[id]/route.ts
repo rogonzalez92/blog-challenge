@@ -8,10 +8,16 @@ const postService = new PostUseCase(postRepository)
 
 export async function DELETE(
     req: Request,
-    context: { params: { id: string } }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = await context.params
+        const resolvedParams = await context.params
+        const { id } = resolvedParams
+
+        if (!id) {
+            return new Response('ID is missing', { status: 400 })
+        }
+
         await postService.deletePost(Number(id))
         return NextResponse.json({ success: true })
     } catch (error) {

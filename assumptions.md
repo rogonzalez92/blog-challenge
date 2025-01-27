@@ -20,7 +20,7 @@ All three technologies were new to me, as was React (partially). Therefore, befo
 
 ### Backend Design
 
-- For this project, I only implemented the GET and DELETE methods, as these were the only requirements in the challenge.
+- For this project, I only implemented the GET, CREATE and DELETE methods, as these were the only requirements in the challenge.
 
 - I assumed that the GET endpoint for users would be sufficient to associate users with their posts.
 
@@ -36,7 +36,7 @@ All three technologies were new to me, as was React (partially). Therefore, befo
 
 - While the design and styling are basic, I created reusable components such as Toast for notifications and Modal for confirmations.
 
--The next step would be to create a generic button component, as the current button is limited to delete actions due to time constraints. The logic for a generic button could follow the approach used for the toast and modal.
+- The next step would be to create a generic button component, as the current button is limited to delete actions due to time constraints. The logic for a generic button could follow the approach used for the toast and modal.
 
 - I centralized the API interaction logic in the provider folder.
 
@@ -50,7 +50,11 @@ All three technologies were new to me, as was React (partially). Therefore, befo
 
 ## Assumptions for Functionality
 
-## Post Deletion
+### Post Creation
+
+- I'm assuming that anyone can create posts and assign them to existing users, initially for challenge purposes. This shouldn't be the case in a real application, but it allows us to create more posts with existing users. Since user creation logic isn't implemented due to time constraints, I've resolved it this way. Posts can only be created via the API. I've included a Postman collection JSON file to facilitate testing.
+
+### Post Deletion
 
 - In this implementation, anyone can access the page and delete posts.
 
@@ -66,9 +70,9 @@ All three technologies were new to me, as was React (partially). Therefore, befo
 
 - To account for potential connection issues, I managed as much as possible on the server side.
 
-- Pagination: Only necessary results are fetched, with a default of 6 posts per page (hardcoded for now but customizable in the future).
+- Pagination: Only necessary results are fetched, with a default of 6 posts per page (hardcoded for now but customizable in the future). While these components are lightweight, it is assumed that the application may scale to accommodate many users and posts.
 
-- Lazy loading for non-critical components
+- Lazy loading for non-critical components: While these components are lightweight, it is assumed that the application may scale to accommodate many users and posts.
 
 ### Loading Indicators:
 
@@ -85,6 +89,10 @@ Data is cached to avoid unnecessary requests. However, when switching pages or q
 - Once the users are loaded, there is no need to type their names, reducing the likelihood of incorrect submissions.
 
 ## Future Improvements
+
+### Loading
+
+- Loading states are currently confusing. With more time, I would improve how they work and make the loading experience more consistent.
 
 ### Implement Authentication:
 

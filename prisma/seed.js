@@ -1,7 +1,8 @@
-import dotenv from 'dotenv'
+import * as dotenv from 'dotenv'
 import fetch from 'node-fetch'
-import { Post, User } from '@/core/domain/entities'
-import prisma from '@/core/infrastructure/prisma/client'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 dotenv.config()
 
@@ -12,13 +13,13 @@ async function main() {
             fetch(process.env.POSTS_API_URL || ''),
         ])
 
-        const users = (await usersResponse.json()) as User[]
-        const posts = (await postsResponse.json()) as Post[]
+        const users = await usersResponse.json()
+        const posts = await postsResponse.json()
 
         for (const user of users) {
             const userPosts = posts
-                .filter((post: Post) => post.userId === user.id)
-                .map((post: Post) => ({
+                .filter((post) => post.userId === user.id)
+                .map((post) => ({
                     title: post.title,
                     body: post.body,
                 }))
@@ -34,8 +35,7 @@ async function main() {
                 },
             })
         }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error during data seeding:')
         console.error(`Name: ${error.name}`)
         console.error(`Message: ${error.message}`)

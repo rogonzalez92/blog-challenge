@@ -107,10 +107,6 @@ export default function PostsPage({
         })
     }
 
-    if (isPending) {
-        return <Spinner />
-    }
-
     return (
         <div className="container mx-auto px-4 py-8">
             <Suspense fallback={<Spinner />}>
@@ -118,19 +114,29 @@ export default function PostsPage({
                     users={usersList}
                     selectedUserId={selectedUserId}
                     onQueryChange={handleQueryChange}
-                    isLoading={isPending}
                 />
                 <Toast message={message} type={type} />
 
-                <PostsList posts={postsResponse.data} onDelete={handleDelete} />
-                {postsResponse.data.length > 0 ? (
-                    <Pagination
-                        currentPage={initialPage}
-                        totalPages={postsResponse.totalPages}
-                        onPageChange={changePage}
-                    />
+                {isPending ? (
+                    <div className="mt-8">
+                        <Spinner />
+                    </div>
                 ) : (
-                    <EmptyState message="The list of posts is empty." />
+                    <>
+                        <PostsList
+                            posts={postsResponse.data}
+                            onDelete={handleDelete}
+                        />
+                        {postsResponse.data.length > 0 ? (
+                            <Pagination
+                                currentPage={initialPage}
+                                totalPages={postsResponse.totalPages}
+                                onPageChange={changePage}
+                            />
+                        ) : (
+                            <EmptyState message="The list of posts is empty." />
+                        )}
+                    </>
                 )}
             </Suspense>
         </div>

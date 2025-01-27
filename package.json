@@ -8,8 +8,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "prettier": "npx prettier . --write",
-        "db:seed": "ts-node prisma/seed.ts"
+        "prettier": "npx prettier . --write"
     },
     "dependencies": {
         "@prisma/client": "^6.2.1",
