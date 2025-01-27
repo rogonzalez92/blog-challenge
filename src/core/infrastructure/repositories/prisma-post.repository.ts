@@ -18,7 +18,7 @@ export class PrismaPostRepository implements PostRepository {
                 where: userId ? { userId } : undefined,
                 skip: offset,
                 take: limit,
-                orderBy: { createdAt: 'asc' },
+                orderBy: { createdAt: 'desc' },
                 include: { user: true },
             }),
             prisma.post.count({
@@ -47,7 +47,7 @@ export class PrismaPostRepository implements PostRepository {
 
     async findUser(userId: number) {
         return prisma.user.findUnique({
-            where: { id: userId }
+            where: { id: userId },
         })
     }
 
@@ -59,10 +59,10 @@ export class PrismaPostRepository implements PostRepository {
                 userId: data.userId,
             },
             include: {
-                user: true
-            }
+                user: true,
+            },
         })
-        
+
         return post as Post
     }
 }

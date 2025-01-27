@@ -88,6 +88,15 @@ Data is cached to avoid unnecessary requests. However, when switching pages or q
 
 - Once the users are loaded, there is no need to type their names, reducing the likelihood of incorrect submissions.
 
+### API Testing with Jest
+
+Implemented integration tests for all API endpoints (GET /users, GET /posts, POST /posts, DELETE /posts/:id)
+
+- Tests cover successful operations, error cases, and edge scenarios
+- Mocked fetch calls for testing server errors and edge cases
+- Assumed basic validation requirements for post creation (title, body, userId)
+- Tests ensure proper error responses (400, 404, 500) in various scenarios
+
 ## Future Improvements
 
 ### Loading
@@ -115,3 +124,7 @@ Data is cached to avoid unnecessary requests. However, when switching pages or q
 - Implement a workaround to avoid extra fetches caused by route updates when data is not cached.
 - A polling system can be implemented if requests take too long due to low connection speeds.
 - Implement a service worker to allow navigation in case the internet goes down.
+
+### Testing
+
+- Testing for the UI components
