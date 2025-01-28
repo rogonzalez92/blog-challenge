@@ -4,6 +4,7 @@ import React, { createContext, useContext } from 'react'
 import { PostsResponseDto } from '@/core/dtos'
 import { User } from '@/core/domain/entities'
 import { ApiError } from '@/core/errors/api.error'
+import { API_URL } from '@/core/config/api.config'
 
 interface PostOperations {
     delete: (id: number) => Promise<'success' | 'error'>
@@ -48,9 +49,7 @@ export function RepositoryProvider({
             if (params.userId)
                 queryParams.set('userId', params.userId.toString())
             queryParams.set('page', params.page.toString())
-            const response = await fetch(
-                `http://localhost:3000/api/posts?${queryParams}`
-            )
+            const response = await fetch(`${API_URL}/api/posts?${queryParams}`)
             if (!response.ok) {
                 throw new ApiError(response.status, 'Failed to fetch posts')
             }
@@ -71,7 +70,7 @@ export function RepositoryProvider({
                 return usersCache.current
             }
 
-            const response = await fetch(`http://localhost:3000/api/users`)
+            const response = await fetch(`${API_URL}/api/users`)
             if (!response.ok) {
                 throw new ApiError(response.status, 'Failed to fetch users')
             }
@@ -89,7 +88,7 @@ export function RepositoryProvider({
         delete: async (postId) => {
             try {
                 const response = await fetch(
-                    `http://localhost:3000/api/posts/${postId}`,
+                    `${API_URL}//api/posts/${postId}`,
                     {
                         method: 'DELETE',
                     }

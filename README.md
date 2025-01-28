@@ -96,10 +96,10 @@ Import the included Postman collection (blog_challenge_postman_collection.json) 
 
 ### Future Improvements
 
-- Finish Docker Setup
 - Authentication system
 - User management
 - Generic button component
 - Enhanced caching strategy
 - Service worker for offline support
 - User preferences (pagination, language)
+- Try next cursor and other loading techniques
