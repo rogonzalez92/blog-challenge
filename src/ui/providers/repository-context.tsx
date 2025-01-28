@@ -87,12 +87,9 @@ export function RepositoryProvider({
     const posts: PostOperations = {
         delete: async (postId) => {
             try {
-                const response = await fetch(
-                    `${API_URL}//api/posts/${postId}`,
-                    {
-                        method: 'DELETE',
-                    }
-                )
+                const response = await fetch(`${API_URL}/api/posts/${postId}`, {
+                    method: 'DELETE',
+                })
 
                 if (!response.ok) {
                     throw new ApiError(response.status, 'Failed to delete post')
