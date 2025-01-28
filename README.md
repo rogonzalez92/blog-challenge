@@ -1,10 +1,10 @@
 # Blog Challenge
 
+A blog application built with Next.js, Prisma, and Tailwind CSS.
+
 # Badges
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/WHg7Rx4ZPzoCmJXPAB3RBj/6XJ3RYRmhWi9b7oagvVwGL/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/WHg7Rx4ZPzoCmJXPAB3RBj/6XJ3RYRmhWi9b7oagvVwGL/tree/main)
-
-A blog application built with Next.js, Prisma, and Tailwind CSS.
 
 # Decisions taken and things to improve
 
@@ -33,6 +33,20 @@ See assumptions.md for details.
 
 ## Getting Started.
 
+### Using Docker (Recommended)
+
+1. Clone the repository
+
+2. Build and run with Docker
+
+```bash
+docker-compose up --build
+```
+
+The application will be available at http://localhost:3000
+
+### Manual Setup (Alternative)
+
 1. Clone the repository
 2. Install dependencies:
 
@@ -47,10 +61,9 @@ Run npx prisma migrate dev
 npm run seed
 ```
 
-4. Run the development server:
+4. Run the development server (make sure port:3000 is available):
 
-```
-bash
+```bash
 npm run dev
 ```
 

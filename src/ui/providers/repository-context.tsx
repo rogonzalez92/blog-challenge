@@ -49,7 +49,7 @@ export function RepositoryProvider({
                 queryParams.set('userId', params.userId.toString())
             queryParams.set('page', params.page.toString())
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts?${queryParams}`
+                `http://localhost:3000/api/posts?${queryParams}`
             )
             if (!response.ok) {
                 throw new ApiError(response.status, 'Failed to fetch posts')
@@ -71,9 +71,7 @@ export function RepositoryProvider({
                 return usersCache.current
             }
 
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`
-            )
+            const response = await fetch(`http://localhost:3000/api/users`)
             if (!response.ok) {
                 throw new ApiError(response.status, 'Failed to fetch users')
             }
@@ -91,7 +89,7 @@ export function RepositoryProvider({
         delete: async (postId) => {
             try {
                 const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}`,
+                    `http://localhost:3000/api/posts/${postId}`,
                     {
                         method: 'DELETE',
                     }

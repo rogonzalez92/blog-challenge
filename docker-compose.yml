@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '3000:3000'
+        environment:
+            - NEXT_PUBLIC_BASE_URL=http://localhost:3000
+            - POSTS_API_URL=${POSTS_API_URL}
+            - USERS_API_URL=${USERS_API_URL}
+            - DATABASE_URL=file:./prisma/dev.db"
