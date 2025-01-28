@@ -40,6 +40,7 @@ See assumptions.md for details.
 2. Build and run with Docker
 
 ```bash
+cd blog-challenge
 docker-compose up --build
 ```
 
@@ -51,17 +52,11 @@ The application will be available at http://localhost:3000
 2. Install dependencies:
 
 ```bash
+cd blog-challenge
 npm install
 ```
 
-3. Initialize the database
-
-```bash
-Run npx prisma migrate dev
-npm run seed
-```
-
-4. Run the development server (make sure port:3000 is available):
+3. Run the development server (make sure port:3000 is available):
 
 ```bash
 npm run dev
